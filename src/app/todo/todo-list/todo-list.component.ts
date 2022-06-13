@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Todo } from '../todo';
 import { TodoService } from '../todo.service';
 
@@ -24,17 +24,7 @@ export class TodoListComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private todoService: TodoService) {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state) {
-      const state = navigation?.extras.state as { todo: Todo };
-      const todo = state.todo;
-      if (todo) {
-        let index = this.todos.findIndex((t) => t._id == todo['_id']);
-        this.todos[index] = todo;
-      }
-    }
-  }
+  constructor(private router: Router, private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.todoService.findAll().subscribe((todos) => this.todos.push(...todos));

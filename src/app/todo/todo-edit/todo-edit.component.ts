@@ -16,7 +16,7 @@ export class TodoEditComponent implements OnInit {
     state: [Validators.required],
   });
 
-  todo: Todo = {
+  public todo: Todo = {
     _id: '',
     title: '',
     state: false,
@@ -53,14 +53,21 @@ export class TodoEditComponent implements OnInit {
     }
 
     const id = this.route.snapshot.params['id'];
-    this.todoService.update(id, todo).subscribe((data) => {
-      if (data == null) {
-        const navigationExtras: NavigationExtras = { state: { todo: todo } };
+    this.todoService.update(id, todo).subscribe({
+      next: () => this.router.navigateByUrl('todo-list'),
+      error: (err) => {
+        const navigationExtras: NavigationExtras = { state: { todo: this.todo } };
         this.router.navigate(['todo-list'], navigationExtras);
-      } else {
-        this.router.navigateByUrl('todo-list');
-      }
+      },
+      complete: () => console.info('complete'),
     });
+
+    // this.todoService.update(id, todo).subscribe(() => {
+    //     this.router.navigateByUrl('todo-list');
+    // }, (err) => {
+    //   const navigationExtras: NavigationExtras = { state: { todo: todo } };
+    //   this.router.navigate(['todo-list'], navigationExtras);
+    // });
   }
 
   onReset() {
