@@ -1,0 +1,74 @@
+<mat-nav-list>
+  <mat-list-item *ngFor="let todo of todos" [ngClass]="{'crossed:hover && crossed': todo.state === true}" (click)="check(todo)">
+    <div *ngIf="todo.state === false; else done">Todo</div>
+    <ng-template #todo>Todo</ng-template>
+    <ng-template #done>Done</ng-template>
+    <!-- <mat-checkbox [checked]="todo.state">State</mat-checkbox> -->
+    <div class="details">
+      <p matLine>{{ todo.title }}</p>
+      <span>{{ todo.description }}</span>
+    </div>
+    <div id="button-group">
+      <button
+      (click)="details(todo)"
+        mat-icon-button
+        color="dark"
+        aria-label="details"
+      >
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button
+      (click)="edit(todo)"
+        mat-icon-button
+        color="dark"
+        aria-label="edit"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        (click)="delete(todo._id)"
+        mat-icon-button
+        color="dark"
+        aria-label="delete"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+  <mat-list-item style="justify-content:center; display: flex;" id="addButton" (click)="add()">
+    <button
+        mat-icon-button
+        color="dark"
+        aria-label="add"
+      >
+      Add
+        <mat-icon>add</mat-icon>
+      </button>
+  </mat-list-item>
+</mat-nav-list>
+
+<!-- <mat-expansion-panel *ngFor="let todo of todos" hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ todo.title }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="details">
+    <p *ngIf="todo.description">
+      {{ todo.description }}
+    </p>
+    <div id="button-group">
+      <button
+        mat-icon-button
+        color="dark"
+        aria-label="Example icon button with a home icon"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="dark" aria-label="Delete TODO">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-expansion-panel> -->
