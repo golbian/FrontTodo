@@ -1,0 +1,27 @@
+<div class="card m-3">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(todo)">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Title</label>
+                    <input type="text" [(ngModel)]="todo.title" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" />
+                    <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+                        <div *ngIf="f['title'].errors['required']">Title is required</div>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label>Description</label>
+                    <input type="text" [(ngModel)]="todo.description" formControlName="description" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" [(ngModel)]="todo.state" id="state" class="form-check-input" [ngModelOptions]="{standalone: true}" />
+                <label for="state" class="form-check-label">State</label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">Save</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
